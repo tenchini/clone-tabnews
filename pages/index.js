@@ -24,20 +24,6 @@ export default function Home() {
       alignItems: "center",
       padding: "20px",
     },
-    titleWrapper: {
-      position: "relative",
-      fontSize: "1.5rem",
-      fontWeight: "bold",
-      letterSpacing: "0.2em",
-      marginBottom: "3rem",
-      textAlign: "center",
-      color: "#ffffff",
-    },
-    iconsContainer: {
-      display: "flex",
-      gap: "40px",
-      zIndex: 2,
-    },
     link: {
       cursor: "pointer",
       transition: "all 0.3s ease",
@@ -53,7 +39,6 @@ export default function Home() {
     },
     footerText: {
       color: "#666666",
-      fontSize: "0.7rem",
       letterSpacing: "0.05em",
       padding: "0 20px",
     },
@@ -74,7 +59,61 @@ export default function Home() {
       `}</style>
 
       <style jsx>{`
-        /* Animação suave de respiração */
+        /* --- RESPONSIVIDADE --- */
+
+        .responsive-title {
+          position: relative;
+          font-weight: bold;
+          text-align: center;
+          color: #ffffff;
+          margin-bottom: 3rem;
+
+          /* A Mágica: Impede a quebra de linha */
+          white-space: nowrap;
+
+          /* Mobile (iPhone SE e outros pequenos) */
+          font-size: 1.1rem; /* Levemente menor para caber em 320px */
+          letter-spacing: 0.15em;
+        }
+
+        .icons-container {
+          display: flex;
+          z-index: 2;
+          gap: 25px;
+        }
+
+        .responsive-icon {
+          width: 40px;
+          height: 40px;
+        }
+
+        .responsive-footer-text {
+          font-size: 0.65rem;
+        }
+
+        /* Tablet e Desktop (> 768px) */
+        @media (min-width: 768px) {
+          .responsive-title {
+            font-size: 1.5rem;
+            letter-spacing: 0.2em;
+          }
+
+          .icons-container {
+            gap: 40px;
+          }
+
+          .responsive-icon {
+            width: 50px;
+            height: 50px;
+          }
+
+          .responsive-footer-text {
+            font-size: 0.75rem;
+          }
+        }
+
+        /* --- ANIMAÇÕES --- */
+
         @keyframes gentle-breathing {
           0% {
             opacity: 0.5;
@@ -143,13 +182,17 @@ export default function Home() {
 
       <div style={inlineStyles.pageContainer}>
         <main style={inlineStyles.mainContent}>
-          <div style={inlineStyles.titleWrapper}>
-            <h1 className="text-glitch" data-text={fullText}>
+          <div className="responsive-title">
+            <h1
+              className="text-glitch"
+              data-text={fullText}
+              style={{ margin: 0 }}
+            >
               {fullText}
             </h1>
           </div>
 
-          <div style={inlineStyles.iconsContainer}>
+          <div className="icons-container">
             <a
               href={linkedinUrl}
               target="_blank"
@@ -166,8 +209,7 @@ export default function Home() {
               onMouseLeave={() => setHoverLinkedin(false)}
             >
               <svg
-                width="50"
-                height="50"
+                className="responsive-icon"
                 viewBox="0 0 448 512"
                 fill="#ffffff"
                 xmlns="http://www.w3.org/2000/svg"
@@ -192,8 +234,7 @@ export default function Home() {
               onMouseLeave={() => setHoverGithub(false)}
             >
               <svg
-                width="50"
-                height="50"
+                className="responsive-icon"
                 viewBox="0 0 512 512"
                 fill="#ffffff"
                 xmlns="http://www.w3.org/2000/svg"
@@ -205,7 +246,10 @@ export default function Home() {
         </main>
 
         <footer style={inlineStyles.footer}>
-          <div style={inlineStyles.footerText}>
+          <div
+            style={inlineStyles.footerText}
+            className="responsive-footer-text"
+          >
             © {new Date().getFullYear()} Criado por Vinicius Tenchini. Todos os
             direitos reservados.
           </div>
